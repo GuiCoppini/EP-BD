@@ -43,7 +43,7 @@ class OcorrenciaController {
     @RequestMapping("/{id}/editar") // Edita a Ocorrecia com esse id
     fun editar(@PathVariable("id") id: Long) : ModelAndView {
 
-        return novaOcorrencia(true, ocorrenciaRepository.findOne(id))
+        return novaOcorrencia(ocorrenciaRepository.findOne(id))
     }
 
     @RequestMapping("/{id}/excluir") // Excluir a Ocorrecia com esse id
@@ -56,7 +56,7 @@ class OcorrenciaController {
     }
 
     @RequestMapping("/nova-ocorrencia") // Form de criar ocorrencia
-    fun novaOcorrencia(@RequestParam("edit") edit: Boolean, ocorrencia : Ocorrencia) : ModelAndView {
+    fun novaOcorrencia(ocorrencia : Ocorrencia) : ModelAndView {
         val mv = ModelAndView("/form_ocorrencia")
         mv.addObject("ocorrencia", ocorrencia)
 
@@ -67,11 +67,8 @@ class OcorrenciaController {
     fun salva(@Valid oc: Ocorrencia, result: BindingResult): ModelAndView {
 
         val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-
-        if(oc.horario == null)
-            oc.horario = Date()
-
-        ocorrenciaRepository.save(oc)
+        
+        ocorrenciaRepository.saveAndFlush(oc)
         return ModelAndView("redirect:/index")
 
     }

@@ -1,24 +1,19 @@
 package SistemadeOcorrencias.Ocorrencia
 
-import java.util.*
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
 import javax.persistence.Id
+import java.util.Date
 
 @Entity
-data class Ocorrencia(
-        @Id
-        @GeneratedValue
-        var id : Long? = null,
-        var descricao : String,
-        var prioridade : Int
-) {
+class Ocorrencia(@Id
+                 @GeneratedValue
+                 var id: Long? = null,
 
-    var horario : Date? = null
-    var medidas : String? = null
+                 var descricao: String? = null,
 
-    constructor() : this(descricao = "",
-                         prioridade = -1)
+                 var prioridade: Int = 0,
 
-}
+                 var ultimoUpdate: Date = Date(),
+
+                 var medidas: String? = null)

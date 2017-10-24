@@ -22,6 +22,7 @@
                     <th>Prioridade</th>
                     <th>Descrição</th>
                     <th>Medidas (Se estiver vazia, não houve tratamento ainda)</th>
+                    <th>Criação</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -31,6 +32,7 @@
                     <td th:text="${ocorrencia.prioridade}"></td>
                     <td th:text="${ocorrencia.descricao}"></td>
                     <td th:text="${ocorrencia.medidas}"></td>
+                    <td th:text="${ocorrencia.ultimoUpdate}"></td>
                     <td>
                         <div>
                             <a class="btn btn-sm btn-success" th:href="@{/{id}/editar(id=${ocorrencia.id})}">Editar</a>
@@ -44,7 +46,7 @@
         </div>
     </div>
     <div class="panel-footer">
-        <a class="btn btn-sm btn-success" th:href="@{/nova-ocorrencia?edit=false}">Registrar nova ocorrência</a>
+        <a class="btn btn-sm btn-success" th:href="@{/nova-ocorrencia}">Registrar nova ocorrência</a>
     </div>
 </div>
 </body>

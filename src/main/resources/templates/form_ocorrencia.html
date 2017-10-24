@@ -25,6 +25,9 @@
                         </div>
                     </div>
 
+                    <input type="hidden" class="form-control input-sm" id="id" th:field="*{id}"/>
+                    <input type="hidden" class="form-control input-sm" id="ultimoUpdate" th:field="*{ultimoUpdate}"/>
+
                     <div class="form-group row">
                         <div class="col-md-4" th:classappend="${#fields.hasErrors('descricao')}? 'has-error'">
                             <label>Descrição</label>
