@@ -39,7 +39,7 @@ table {
                     <th class="col-sm-1">ID</th>
                     <th class="col-sm-1">Prioridade</th>
                     <th>Descrição</th>
-                    <th>Medidas (Se estiver vazia, não houve tratamento ainda)</th>
+                    <th>Medidas</th>
                     <th>Criação</th>
                     <th>Último update</th>
                     <th>Opções</th>
@@ -56,7 +56,7 @@ table {
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-sm btn-success" th:href="@{/{id}/editar(id=${ocorrencia.id})}">Editar</a>
-                            <a class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja deletar esta ocorrência?');" th:href="@{/{id}/excluir(id=${ocorrencia.id})}">Excluir</a>
+                            <a class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta ocorrência?');" th:href="@{/{id}/excluir(id=${ocorrencia.id})}">Excluir</a>
                             <a class="btn btn-sm btn-primary" th:href="@{/{id}(id=${ocorrencia.id})}">Visualizar</a>
                         </div>
                     </td>
