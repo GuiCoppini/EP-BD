@@ -21,6 +21,16 @@ table {
     <div class="panel-heading">
         <strong>Ocorrencias</strong>
     </div>
+
+    <div class="panel-body">
+        <h4><strong>Organizar por:</strong></h4>
+        <a class="btn btn-md btn-primary" th:href="@{/index?tipo=prioridade}">Prioridade</a>
+        <a class="btn btn-md btn-primary" th:href="@{/index?tipo=all}">Id</a>
+        <a class="btn btn-md btn-primary" th:href="@{/index?tipo=update}">Data de Atualização</a>
+        <a class="btn btn-md btn-success" th:href="@{/index?tipo=tratadas}">Tratadas</a>
+        <a class="btn btn-md btn-danger" th:href="@{/index?tipo=pendentes}">Pendentes</a>
+    </div>
+
     <div class="panel-body">
         <div class="table-responsive">
             <table class="table table-sm table-striped table-hover table-bordered">
@@ -46,7 +56,7 @@ table {
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-sm btn-success" th:href="@{/{id}/editar(id=${ocorrencia.id})}">Editar</a>
-                            <a class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" th:href="@{/{id}/excluir(id=${ocorrencia.id})}">Excluir</a>
+                            <a class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja deletar esta ocorrência?');" th:href="@{/{id}/excluir(id=${ocorrencia.id})}">Excluir</a>
                             <a class="btn btn-sm btn-primary" th:href="@{/{id}(id=${ocorrencia.id})}">Visualizar</a>
                         </div>
                     </td>

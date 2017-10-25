@@ -34,11 +34,30 @@ class OcorrenciaController {
     }
 
     @RequestMapping("/index") // Mostra todas as ocorrencias
-    fun todas() : ModelAndView {
+    fun todas(@RequestParam("tipo") tipo : String) : ModelAndView {
         val mv = ModelAndView("lista_de_ocorrencias")
-        mv.addObject("ocorrencias", ocorrenciaRepository.findAll())
+
+        var list : List<Ocorrencia>? = null
+
+        when(tipo){
+            "all" -> list = ocorrenciaRepository.findAll()
+            "prioridade" -> list =  ocorrenciaRepository.findAllByOrderByPrioridadeDesc()
+            "id" -> list = ocorrenciaRepository.findAllByOrderByIdAsc()
+            "update" -> list = ocorrenciaRepository.findAllByOrderByUltimoUpdateDesc()
+            "tratadas" -> list = ocorrenciaRepository.findAll().filter { it -> it.medidas != "Esta ocorrencia ainda não foi tratada!" }
+            "pendentes" -> list = ocorrenciaRepository.findAll().filter { it -> it.medidas == "Esta ocorrencia ainda não foi tratada!" }
+        }
+
+
+        mv.addObject("ocorrencias", list)
 
         return mv
+    }
+
+    @RequestMapping("/resolvidas") // Todas as que a medidas é diferente da String padrao
+    fun resolvidas() {
+        val mv = ModelAndView("lista_de_occorencias")
+        val resolvidas = ocorrenciaRepository
     }
 
     @RequestMapping("/{id}/editar") // Edita a Ocorrecia com esse id
@@ -62,7 +81,7 @@ class OcorrenciaController {
 
         ocorrenciaRepository.delete(id)
 
-        return ModelAndView("redirect:/index")
+        return ModelAndView("redirect:/index?tipo=all")
 
     }
 
@@ -93,7 +112,7 @@ class OcorrenciaController {
         oc.ultimoUpdate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
         
         ocorrenciaRepository.saveAndFlush(oc)
-        return ModelAndView("redirect:/index")
+        return ModelAndView("redirect:/index?tipo=all")
 
     }
 }
