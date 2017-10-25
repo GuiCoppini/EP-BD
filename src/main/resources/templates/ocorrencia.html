@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Lista de Ocorrencias</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Visualizar Ocorrência</strong>
+    </div>
+
+    <div class="text-center">
+        <h2 th:text="'Ocorrência - ID: ' + ${oc.id}"></h2>
+    </div>
+
+    <div class="list-group">
+        <div class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1"><strong>Prioridade</strong></h5>
+            </div>
+            <p class="mb-1" th:text="${oc.prioridade}"></p>
+        </div>
+
+        <div class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1"><strong>Desrição</strong></h5>
+            </div>
+            <p class="mb-1" th:text="${oc.descricao}"></p>
+        </div>
+
+        <div class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1"><strong>Medidas</strong></h5>
+            </div>
+            <p class="mb-1" th:text="${oc.medidas}"></p>
+        </div>
+
+        <div class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1"><strong>Data da ultima atualização</strong></h5>
+            </div>
+            <p class="mb-1" th:text="${oc.ultimoUpdate}"></p>
+        </div>
+
+        <div class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1"><strong>Data de Criação</strong></h5>
+            </div>
+            <p class="mb-1" th:text="${oc.criacao}"></p>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <a class="btn btn-sm btn-warning" th:href="@{/index}">Voltar</a>
+        <a class="btn btn-sm btn-default pull-right" th:href="@{/{id}/resolver(id=${oc.id})}">Alterar medidas tomadas</a>
+    </div>
+</div>
+</body>
+</html>

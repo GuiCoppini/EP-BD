@@ -1,5 +1,7 @@
 package SistemadeOcorrencias.Ocorrencia
 
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
@@ -14,6 +16,9 @@ class Ocorrencia(@Id
 
                  var prioridade: Int = 0,
 
-                 var ultimoUpdate: Date = Date(),
+                 var ultimoUpdate: String = "",
 
-                 var medidas: String? = null)
+                 var medidas: String = "Esta ocorrencia ainda não foi tratada!",
+
+                 var criacao : String = ""
+)

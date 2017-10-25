@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import java.util.*
 import java.text.SimpleDateFormat
 import java.text.DateFormat
+import java.time.LocalDateTime
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.transaction.Transactional
@@ -46,6 +47,16 @@ class OcorrenciaController {
         return novaOcorrencia(ocorrenciaRepository.findOne(id))
     }
 
+    @RequestMapping("/{id}") // Mostra a ocorrencia, seus detalhes e suas opcoes
+    fun mostraUma(@PathVariable("id") id: Long) : ModelAndView {
+
+        val mv = ModelAndView("ocorrencia")
+        mv.addObject("oc", ocorrenciaRepository.findOne(id))
+
+        return mv
+    }
+
+
     @RequestMapping("/{id}/excluir") // Excluir a Ocorrecia com esse id
     fun excluir(@PathVariable("id") id: Long) : ModelAndView {
 
@@ -55,9 +66,20 @@ class OcorrenciaController {
 
     }
 
+    @RequestMapping("/{id}/resolver")
+    fun resolve(@PathVariable("id") id: Long): ModelAndView {
+
+        val mv = ModelAndView("resolvendo")
+
+        mv.addObject(ocorrenciaRepository.findOne(id))
+
+        return mv
+
+    }
+
     @RequestMapping("/nova-ocorrencia") // Form de criar ocorrencia
     fun novaOcorrencia(ocorrencia : Ocorrencia) : ModelAndView {
-        val mv = ModelAndView("/form_ocorrencia")
+        val mv = ModelAndView("form_ocorrencia")
         mv.addObject("ocorrencia", ocorrencia)
 
         return mv
@@ -66,7 +88,9 @@ class OcorrenciaController {
     @PostMapping("/salvar")
     fun salva(@Valid oc: Ocorrencia, result: BindingResult): ModelAndView {
 
-        val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+        if(oc.criacao == "") oc.criacao = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
+
+        oc.ultimoUpdate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
         
         ocorrenciaRepository.saveAndFlush(oc)
         return ModelAndView("redirect:/index")

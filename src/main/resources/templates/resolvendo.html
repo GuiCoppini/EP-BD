@@ -28,25 +28,20 @@
                     <input type="hidden" class="form-control input-sm" id="id" th:field="*{id}"/>
                     <input type="hidden" class="form-control input-sm" id="criacao" th:field="*{criacao}"/>
                     <input type="hidden" class="form-control input-sm" id="ultimoUpdate" th:field="*{ultimoUpdate}"/>
-                    <input type="hidden" class="form-control input-sm" id="medidas" th:field="*{medidas}"/>
+                    <input type="hidden" class="form-control input-sm" id="descricao" th:field="*{descricao}"/>
+                    <input type="hidden" class="form-control input-sm" id="prioridade" th:field="*{prioridade}"/>
                     <!--<input type="hidden" class="form-control input-sm" id="pendente" th:field="*{pendente}"/>-->
 
                     <div class="form-group row">
-                        <div class="col-md-4" th:classappend="${#fields.hasErrors('descricao')}? 'has-error'">
-                            <label>Descrição</label>
-                            <input type="text" class="form-control input-sm" th:field="*{descricao}" autofocus="autofocus" placeholder="Descreva a ocorrência" maxlength="140"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-4" th:classappend="${#fields.hasErrors('prioridade')}? 'has-error'">
-                            <label>Prioridade (1-100)</label>
-                            <input type="number" class="form-control input-sm" th:field="*{prioridade}" maxlength="5" placeholder="Qual a prioridade?" min="1" max="100"/>
+                        <div class="col-md-4" th:classappend="${#fields.hasErrors('medidas')}? 'has-error'">
+                            <label>Quais as medidas tomadas?</label>
+                            <input type="text" class="form-control input-sm" th:field="*{medidas}" autofocus="autofocus" placeholder="Descreva as medidas tomadas" maxlength="120"/>
                         </div>
                     </div>
                 </fieldset>
             </div>
             <div class="form-group row">
-                <button type="submit" class="btn btn-sm btn-primary">Registrar Ocorrência</button>
+                <button type="submit" class="btn btn-sm btn-primary">Confirmar</button>
                 <a th:href="@{/index}" class="btn btn-sm btn-default">Cancelar</a>
             </div>
         </form>
