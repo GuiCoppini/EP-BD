@@ -30,22 +30,29 @@ class OcorrenciaController {
     @RequestMapping("/") // Pagina HOME das ocorrencias
     fun homepage() : ModelAndView {
         val mv = ModelAndView("/homepage")
+
         return mv
     }
 
     @RequestMapping("/index") // Mostra todas as ocorrencias
-    fun todas(@RequestParam("tipo") tipo : String) : ModelAndView {
+    fun todas(@RequestParam("tipo") tipo : String,
+              @RequestParam("attr", required = false) attr : String?) : ModelAndView {
         val mv = ModelAndView("lista_de_ocorrencias")
-
         var list : List<Ocorrencia>? = null
 
-        when(tipo){
-            "all" -> list = ocorrenciaRepository.findAll()
-            "prioridade" -> list =  ocorrenciaRepository.findAllByOrderByPrioridadeDesc()
-            "id" -> list = ocorrenciaRepository.findAllByOrderByIdAsc()
-            "update" -> list = ocorrenciaRepository.findAllByOrderByUltimoUpdateDesc()
-            "tratadas" -> list = ocorrenciaRepository.findAll().filter { it -> it.medidas != "Esta ocorrencia ainda não foi tratada!" }
-            "pendentes" -> list = ocorrenciaRepository.findAll().filter { it -> it.medidas == "Esta ocorrencia ainda não foi tratada!" }
+        if(attr != null) {
+            when(tipo) {
+                "all" -> list = ocorrenciaRepository.busca(attr)
+            }
+        } else {
+            when (tipo) {
+                "all" -> list = ocorrenciaRepository.findAll()
+                "prioridade" -> list = ocorrenciaRepository.findAllByOrderByPrioridadeDesc()
+                "id" -> list = ocorrenciaRepository.findAllByOrderByIdAsc()
+                "update" -> list = ocorrenciaRepository.findAllByOrderByUltimoUpdateDesc()
+                "tratadas" -> list = ocorrenciaRepository.findAll().filter { it -> it.medidas != "Esta ocorrencia ainda não foi tratada!" }
+                "pendentes" -> list = ocorrenciaRepository.findAll().filter { it -> it.medidas == "Esta ocorrencia ainda não foi tratada!" }
+            }
         }
 
 

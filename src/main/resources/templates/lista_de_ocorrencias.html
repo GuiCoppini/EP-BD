@@ -19,16 +19,30 @@ table {
 <body>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <strong>Ocorrencias</strong>
+        <strong>Ocorrências</strong>
     </div>
 
     <div class="panel-body">
-        <h4><strong>Organizar por:</strong></h4>
+        <h4><strong>Ordenar por:</strong></h4>
         <a class="btn btn-md btn-primary" th:href="@{/index?tipo=prioridade}">Prioridade</a>
         <a class="btn btn-md btn-primary" th:href="@{/index?tipo=all}">Id</a>
         <a class="btn btn-md btn-primary" th:href="@{/index?tipo=update}">Data de Atualização</a>
         <a class="btn btn-md btn-success" th:href="@{/index?tipo=tratadas}">Tratadas</a>
         <a class="btn btn-md btn-danger" th:href="@{/index?tipo=pendentes}">Pendentes</a>
+
+            <div class="row">
+                <form method="get" action="/index">
+                    <div class="small-3 columns">
+                        <input type="hidden" id="tipo" name="tipo" value="all"/>
+                        <input type="text" id="attr" name="attr"/>
+                    </div>
+
+                    <div class="small-5 columns end">
+                        <button id="button-id" type="submit">Buscar</button>
+                    </div>
+                </form>
+            </div>
+
     </div>
 
     <div class="panel-body">
