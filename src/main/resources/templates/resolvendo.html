@@ -35,7 +35,7 @@
                     <div class="form-group row">
                         <div class="col-md-4" th:classappend="${#fields.hasErrors('medidas')}? 'has-error'">
                             <label>Quais as medidas tomadas?</label>
-                            <input type="text" class="form-control input-sm" th:field="*{medidas}" autofocus="autofocus" placeholder="Descreva as medidas tomadas" maxlength="120"/>
+                            <input type="text" class="form-control input-sm" th:field="*{medidas}" required="required" autofocus="autofocus" placeholder="Descreva as medidas tomadas" maxlength="120"/>
                         </div>
                     </div>
                 </fieldset>
