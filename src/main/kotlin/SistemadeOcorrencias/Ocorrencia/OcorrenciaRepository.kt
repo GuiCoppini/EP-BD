@@ -12,4 +12,7 @@ interface OcorrenciaRepository : JpaRepository<Ocorrencia, Long> {
 
     fun findAllByOrderByIdAsc(): List<Ocorrencia>
 
+    @Query("SELECT o FROM Ocorrencia o WHERE o.descricao LIKE %?1%")
+    fun busca(desc : String?) : List<Ocorrencia>
+
 }
