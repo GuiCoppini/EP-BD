@@ -106,7 +106,7 @@ class OcorrenciaController {
 
     @PostMapping("/salvar")
     fun salva(@Valid oc: Ocorrencia, result: BindingResult): ModelAndView {
-
+        
         if(oc.criacao == "") oc.criacao = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
 
         oc.ultimoUpdate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())

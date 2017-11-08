@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Lista de Ocorrencias</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+</style>
+
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Ocorrencias</strong>
+    </div>
+
+    <div class="panel-body">
+        <h4><strong>Organizar por:</strong></h4>
+        <a class="btn btn-md btn-primary" th:href="@{/index?tipo=prioridade}">Prioridade</a>
+        <a class="btn btn-md btn-primary" th:href="@{/index?tipo=all}">Id</a>
+        <a class="btn btn-md btn-primary" th:href="@{/index?tipo=update}">Data de Atualização</a>
+        <a class="btn btn-md btn-success" th:href="@{/index?tipo=tratadas}">Tratadas</a>
+        <a class="btn btn-md btn-danger" th:href="@{/index?tipo=pendentes}">Pendentes</a>
+    </div>
+
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th class="col-sm-1">ID</th>
+                    <th class="col-sm-1">Prioridade</th>
+                    <th>Descrição</th>
+                    <th>Medidas</th>
+                    <th>Criação</th>
+                    <th>Último update</th>
+                    <th>Opções</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ocorrencia : ${ocorrencias}">
+                    <td th:text="${ocorrencia.id}"></td>
+                    <td th:text="${ocorrencia.prioridade}"></td>
+                    <td style="width:10%" th:text="${ocorrencia.descricao}"></td>
+                    <td style="width:10%" th:text="${ocorrencia.medidas}"></td>
+                    <td th:text="${ocorrencia.criacao}"></td>
+                    <td th:text="${ocorrencia.ultimoUpdate}"></td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-success" th:href="@{/{id}/editar(id=${ocorrencia.id})}">Editar</a>
+                            <a class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta ocorrência?');" th:href="@{/{id}/excluir(id=${ocorrencia.id})}">Excluir</a>
+                            <a class="btn btn-sm btn-primary" th:href="@{/{id}(id=${ocorrencia.id})}">Visualizar</a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <a class="btn btn-sm btn-success" th:href="@{/nova-ocorrencia}">Registrar nova ocorrência</a>
+    </div>
+</div>
+</body>
+</html>
