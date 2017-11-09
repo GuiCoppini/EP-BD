@@ -1,13 +1,12 @@
 package SistemadeOcorrencias.Ocorrencia
 
+import SistemadeOcorrencias.Funcionario.Funcionario
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
 import java.util.Date
-import javax.persistence.Table
-import javax.persistence.Column
+import javax.persistence.*
+import javax.security.auth.Subject
+
 
 @Entity
 @Table(name="OCORRENCIA")
@@ -30,4 +29,12 @@ class Ocorrencia(
 
                  @Column(name="Data_de_criacao")
                  var criacao : String = ""
-)
+) {
+
+    @ManyToMany(cascade = arrayOf(CascadeType.ALL))
+    @JoinTable(name = "ALTEROU_OCORRENCIA",
+            joinColumns = arrayOf(JoinColumn(name = "funcionario_cpf", referencedColumnName = "cpf")),
+            inverseJoinColumns = arrayOf(JoinColumn(name = "ocorrencia_id", referencedColumnName = "id"))
+    )
+    val funcionarios: Set<Funcionario> = mutableSetOf()
+}

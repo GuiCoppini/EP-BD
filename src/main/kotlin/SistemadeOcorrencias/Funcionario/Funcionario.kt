@@ -10,6 +10,7 @@ import javax.persistence.Id
 import java.util.Date
 import javax.persistence.Table
 import javax.persistence.Column
+import javax.persistence.ManyToMany
 
 @Entity
 @Table(name="FUNCIONARIO")
@@ -34,5 +35,8 @@ class Funcionario(
         var dataNascimento: Date? = null,
 
         @Column(name="Data_de_criacao")
-        var criacao : String = ""
+        var criacao : String = "",
+
+        @ManyToMany(mappedBy = "funcionarios")
+        val ocorrencias : Set<Funcionario> = mutableSetOf()
 )

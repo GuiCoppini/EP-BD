@@ -1,5 +1,6 @@
 package SistemadeOcorrencias.Ocorrencia
 
+import SistemadeOcorrencias.Funcionario.Ocorrencia
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
@@ -11,11 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import java.util.*
 import java.text.SimpleDateFormat
-import java.text.DateFormat
-import java.time.LocalDateTime
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
-import javax.transaction.Transactional
 
 
 @Controller
