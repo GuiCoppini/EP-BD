@@ -10,7 +10,7 @@ import javax.persistence.Table
 import javax.persistence.Column
 
 @Entity
-@Table(name="Ocorrencias")
+@Table(name="OCORRENCIA")
 class Ocorrencia(
                  @Id
                  @GeneratedValue
