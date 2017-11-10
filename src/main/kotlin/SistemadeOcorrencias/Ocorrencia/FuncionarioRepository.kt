@@ -4,8 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface FuncionarioRepository : JpaRepository<Ocorrencia, Long> {
+interface FuncionarioRepository : JpaRepository<Funcionario, Long> {
 
-    fun findByCpf() : Funcionario?
+    fun findByCpf(cpf: Long?) : Funcionario?
 
 }

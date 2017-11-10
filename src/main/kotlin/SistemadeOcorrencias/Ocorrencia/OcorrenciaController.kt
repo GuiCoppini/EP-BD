@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import java.util.*
 import java.text.SimpleDateFormat
-import javax.persistence.EntityManager
-import javax.persistence.PersistenceContext
+//import javax.persistence.EntityManager
+//import javax.persistence.PersistenceContext
 
 
 @Controller
@@ -21,8 +21,11 @@ class OcorrenciaController {
     @Autowired
     lateinit var ocorrenciaRepository : OcorrenciaRepository
 
-    @PersistenceContext
-    lateinit var em : EntityManager
+//    @Autowired
+//    lateinit var funcionarioRepository: FuncionarioRepository
+
+//    @PersistenceContext
+//    lateinit var em : EntityManager
 
     @RequestMapping("/") // Pagina HOME das ocorrencias
     fun homepage() : ModelAndView {

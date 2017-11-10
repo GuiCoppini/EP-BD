@@ -4,32 +4,33 @@ import javax.persistence.*
 
 
 @Entity
-@Table(name="OCORRENCIAS")
+@Table(name="OCORRENCIA")
 class Ocorrencia(
                  @Id
                  @GeneratedValue
+                 @Column(name="id")
                  var id: Long? = null,
 
-                 @Column(name="Descricao")
+                 @Column(name="descricao")
                  var descricao: String? = null,
 
-                 @Column(name="Prioridade")
+                 @Column(name="prioridade")
                  var prioridade: Int = 0,
 
-                 @Column(name="Data_de_update")
+                 @Column(name="data_update")
                  var ultimoUpdate: String = "",
 
-                 @Column(name="Medidas")
+                 @Column(name="medidas")
                  var medidas: String = "Esta ocorrencia ainda não foi tratada!",
 
-                 @Column(name="Data_de_criacao")
+                 @Column(name="data_criacao")
                  var criacao : String = ""
 ) {
 
-    @ManyToMany(targetEntity=Funcionario::class, cascade = arrayOf(CascadeType.ALL))
+    @ManyToMany(cascade = arrayOf(CascadeType.ALL), fetch = FetchType.LAZY)
     @JoinTable(name = "ALTEROU_OCORRENCIA",
             joinColumns = arrayOf(JoinColumn(name = "id")),
             inverseJoinColumns = arrayOf(JoinColumn(name = "cpf"))
     )
-    private var funcionarios: Set<Funcionario> = mutableSetOf()
+    private var funcionarios: List<Funcionario> = mutableListOf()
 }

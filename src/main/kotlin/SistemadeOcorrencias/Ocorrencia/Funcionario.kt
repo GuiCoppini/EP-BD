@@ -2,6 +2,9 @@ package SistemadeOcorrencias.Ocorrencia
 
 import java.util.Date
 import javax.persistence.*
+import javax.persistence.FetchType
+
+
 
 @Entity
 @Table(name="FUNCIONARIO")
@@ -24,13 +27,11 @@ class Funcionario(
 
         @Column(name="data_nascimento")
         var dataNascimento: Date? = null,
-
-        @Column(name="Data_de_criacao")
-        var criacao : String = "",
+        
 
         @Column(name="email")
         var email : String = ""
 ) {
-    @ManyToMany(mappedBy = "funcionarios", targetEntity=Ocorrencia::class)
-    var ocorrencias : Set<Funcionario> = mutableSetOf()
+    @ManyToMany(mappedBy = "funcionarios", fetch  = FetchType.LAZY)
+    private var ocorrencias : List<Ocorrencia> = mutableListOf()
 }
