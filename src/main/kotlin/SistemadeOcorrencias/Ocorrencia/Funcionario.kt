@@ -1,16 +1,7 @@
-package SistemadeOcorrencias.Funcionario
+package SistemadeOcorrencias.Ocorrencia
 
-import javax.persistence.*
-
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
 import java.util.Date
-import javax.persistence.Table
-import javax.persistence.Column
-import javax.persistence.ManyToMany
+import javax.persistence.*
 
 @Entity
 @Table(name="FUNCIONARIO")
@@ -37,6 +28,9 @@ class Funcionario(
         @Column(name="Data_de_criacao")
         var criacao : String = "",
 
-        @ManyToMany(mappedBy = "funcionarios")
-        val ocorrencias : Set<Funcionario> = mutableSetOf()
-)
+        @Column(name="email")
+        var email : String = ""
+) {
+    @ManyToMany(mappedBy = "funcionarios", targetEntity=Ocorrencia::class)
+    var ocorrencias : Set<Funcionario> = mutableSetOf()
+}

@@ -1,6 +1,5 @@
-package SistemadeOcorrencias.Funcionario
+package SistemadeOcorrencias.Ocorrencia
 
-import SistemadeOcorrencias.Ocorrencia.Ocorrencia
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
