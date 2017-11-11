@@ -1,6 +1,7 @@
 package SistemadeOcorrencias.Ocorrencia
 
 import javax.persistence.*
+import kotlin.jvm.Transient
 
 
 @Entity
@@ -24,13 +25,18 @@ class Ocorrencia(
                  var medidas: String = "Esta ocorrencia ainda não foi tratada!",
 
                  @Column(name="data_criacao")
-                 var criacao : String = ""
+                 var criacao : String = "",
+
+                 @Transient
+                 var cpfTemporario : Long? = null
 ) {
 
-    @ManyToMany(cascade = arrayOf(CascadeType.ALL), fetch = FetchType.LAZY)
+    @ManyToMany(cascade = arrayOf(CascadeType.ALL), fetch = FetchType.EAGER)
     @JoinTable(name = "ALTEROU_OCORRENCIA",
             joinColumns = arrayOf(JoinColumn(name = "id")),
             inverseJoinColumns = arrayOf(JoinColumn(name = "cpf"))
     )
-    private var funcionarios: List<Funcionario> = mutableListOf()
+    private var funcionarios: MutableList<Funcionario> = mutableListOf()
+
+    fun getFuncionarios() = funcionarios
 }

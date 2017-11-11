@@ -10,6 +10,7 @@ import javax.persistence.FetchType
 @Table(name="FUNCIONARIO")
 class Funcionario(
         @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name="cpf") // unico campo que vamos usar de fato
         var cpf: Long? = null,
 
@@ -19,7 +20,7 @@ class Funcionario(
         @Column(name="salario")
         var salario: Double? = null,
 
-        @Column(name="horas_de_trabalho")
+        @Column(name="horas_trabalho")
         var horasDeTrabalho: Int = 0,
 
         @Column(name="nome")
@@ -27,11 +28,12 @@ class Funcionario(
 
         @Column(name="data_nascimento")
         var dataNascimento: Date? = null,
-        
 
         @Column(name="email")
         var email : String = ""
 ) {
-    @ManyToMany(mappedBy = "funcionarios", fetch  = FetchType.LAZY)
-    private var ocorrencias : List<Ocorrencia> = mutableListOf()
+    @ManyToMany(mappedBy = "funcionarios", fetch  = FetchType.EAGER)
+    private var ocorrencias : MutableList<Ocorrencia> = mutableListOf()
+
+    fun getOcorrencias() = ocorrencias
 }

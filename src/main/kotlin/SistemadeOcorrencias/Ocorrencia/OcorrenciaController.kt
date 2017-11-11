@@ -21,8 +21,8 @@ class OcorrenciaController {
     @Autowired
     lateinit var ocorrenciaRepository : OcorrenciaRepository
 
-//    @Autowired
-//    lateinit var funcionarioRepository: FuncionarioRepository
+    @Autowired
+    lateinit var funcionarioRepository: FuncionarioRepository
 
 //    @PersistenceContext
 //    lateinit var em : EntityManager
@@ -33,6 +33,26 @@ class OcorrenciaController {
 
         return mv
     }
+
+    @RequestMapping("/{id}/funcionarios") // Pagina HOME das ocorrencias
+    fun funcionariosDaOcorrencia(@PathVariable("id") id: Long) : ModelAndView {
+        val mv = ModelAndView("/lista_de_funcionarios")
+
+        mv.addObject("funcionarios", ocorrenciaRepository.findOne(id).getFuncionarios())
+
+        return mv
+    }
+
+    @RequestMapping("/funcionario/{cpf}") // Pagina HOME das ocorrencias
+    fun ocorrenciasDoFuncionario(@PathVariable("cpf") cpf: Long) : ModelAndView {
+        val mv = ModelAndView("/ocorrencias_do_funcionario")
+
+        mv.addObject("funcionarios", funcionarioRepository.findOne(cpf).getOcorrencias())
+
+        return mv
+    }
+
+
 
     @RequestMapping("/index") // Mostra todas as ocorrencias
     fun todas(@RequestParam("tipo") tipo : String,
@@ -68,7 +88,7 @@ class OcorrenciaController {
     }
 
     @RequestMapping("/{id}/editar") // Edita a Ocorrecia com esse id
-    fun editar(@PathVariable("id") id: Long) : ModelAndView {
+    fun editar(@PathVariable("id") id: Long?) : ModelAndView {
 
         return novaOcorrencia(ocorrenciaRepository.findOne(id))
     }
@@ -113,7 +133,15 @@ class OcorrenciaController {
 
     @PostMapping("/salvar")
     fun salva(@Valid oc: Ocorrencia, result: BindingResult): ModelAndView {
-        
+
+        val funcionario = funcionarioRepository.findOne(oc.cpfTemporario)
+
+        if(funcionario == null) {
+            editar(oc.id)
+        }
+        oc.getFuncionarios().add(funcionario)
+        funcionario.getOcorrencias().add(oc)
+
         if(oc.criacao == "") oc.criacao = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
 
         oc.ultimoUpdate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
