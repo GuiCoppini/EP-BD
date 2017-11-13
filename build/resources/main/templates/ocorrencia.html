@@ -55,8 +55,9 @@
         </div>
     </div>
     <div class="panel-footer">
-        <a class="btn btn-sm btn-warning" th:href="@{/index?tipo=all}">Voltar</a>
-        <a class="btn btn-sm btn-default pull-right" th:href="@{/{id}/resolver(id=${oc.id})}">Alterar medidas tomadas</a>
+        <a class="btn btn-md btn-warning" th:href="@{/index?tipo=all}">Voltar</a>
+        <a class="btn btn-md btn-default" th:href="@{/{id}/funcionarios(id=${oc.id})}">Funcionarios que editaram esta ocorrência</a>
+        <a class="btn btn-md btn-primary pull-right" th:href="@{/{id}/resolver(id=${oc.id})}">Alterar medidas tomadas</a>
     </div>
 </div>
 </body>

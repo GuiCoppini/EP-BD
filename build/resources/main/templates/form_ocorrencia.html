@@ -29,7 +29,13 @@
                     <input type="hidden" class="form-control input-sm" id="criacao" th:field="*{criacao}"/>
                     <input type="hidden" class="form-control input-sm" id="ultimoUpdate" th:field="*{ultimoUpdate}"/>
                     <input type="hidden" class="form-control input-sm" id="medidas" th:field="*{medidas}"/>
-                    <!--<input type="hidden" class="form-control input-sm" id="pendente" th:field="*{pendente}"/>-->
+
+                    <div class="form-group row">
+                        <div class="col-md-4" th:classappend="${#fields.hasErrors('cpfTemporario')}? 'has-error'">
+                            <label>Seu CPF (APENAS NÚEMROS), confira antes de submeter</label>
+                            <input type="text" class="form-control input-sm" th:field="*{cpfTemporario}" autofocus="autofocus" required="required" placeholder="Qual seu CPF?" maxlength="11"/>
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <div class="col-md-4" th:classappend="${#fields.hasErrors('descricao')}? 'has-error'">
@@ -37,6 +43,7 @@
                             <input type="text" class="form-control input-sm" th:field="*{descricao}" autofocus="autofocus" required="required" placeholder="Descreva a ocorrência" maxlength="140"/>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <div class="col-md-4" th:classappend="${#fields.hasErrors('prioridade')}? 'has-error'">
                             <label>Prioridade (1-100)</label>

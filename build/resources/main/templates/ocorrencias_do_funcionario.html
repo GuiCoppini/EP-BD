@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Lista de Ocorrencias</title>
+    <title>Ocorrências por Funcionário</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -20,31 +20,6 @@ table {
 <div class="panel panel-default">
     <div class="panel-heading">
         <strong>Ocorrências</strong>
-    </div>
-
-    <div class="panel-body">
-        <!-- PESQUISA -->
-        <div style="text-align: right;">
-            <form method="get" action="/index">
-                <div class="small-3 columns">
-                    <input type="hidden" id="tipo" name="tipo" value="all"/>
-                    <input type="text" id="attr" name="attr"/>
-
-                    <button id="button-id" type="submit">Buscar por Descrição</button>
-                </div>
-            </form>
-        </div>
-        <!-- FIM PESQUISA -->
-
-        <!-- BOTOES -->
-        <h4><strong>Ordenar por:</strong></h4>
-        <a class="btn btn-md btn-primary" th:href="@{/index?tipo=prioridade}">Prioridade</a>
-        <a class="btn btn-md btn-primary" th:href="@{/index?tipo=all}">Id</a>
-        <a class="btn btn-md btn-primary" th:href="@{/index?tipo=update}">Data de Atualização</a>
-        <a class="btn btn-md btn-success" th:href="@{/index?tipo=tratadas}">Tratadas</a>
-        <a class="btn btn-md btn-danger" th:href="@{/index?tipo=pendentes}">Pendentes</a>
-        <!-- FIM DOS BOTOES -->
-
     </div>
 
     <div class="panel-body">
@@ -81,8 +56,9 @@ table {
             </table>
         </div>
     </div>
+
     <div class="panel-footer">
-        <a class="btn btn-sm btn-success" th:href="@{/nova-ocorrencia}">Registrar nova ocorrência</a>
+        <a class="btn btn-sm btn-success" th:href="@{/index?tipo=all}">Voltar</a>
     </div>
 </div>
 </body>
