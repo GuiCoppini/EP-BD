@@ -29,6 +29,15 @@ class OcorrenciaController {
         return mv
     }
 
+    @RequestMapping("/funcionarios")
+    fun funcionarios() : ModelAndView {
+        val mv = ModelAndView("lista_de_funcionarios")
+
+        mv.addObject("funcionarios", funcionarioRepository.findAll())
+
+        return mv
+    }
+
     @RequestMapping("/{id}/funcionarios") // Pagina HOME das ocorrencias
     fun funcionariosDaOcorrencia(@PathVariable("id") id: Long) : ModelAndView {
         val mv = ModelAndView("lista_de_funcionarios")
@@ -139,7 +148,7 @@ class OcorrenciaController {
         oc.getFuncionarios().add(funcionario) // add funcionario na ocorrencia
         funcionario.getOcorrencias().add(oc) // add ocorrencia no funcionario
 
-        funcionarioRepository.saveAndFlush(funcionario)
+        funcionarioRepository.save(funcionario)
 
 
         if(oc.criacao == "") oc.criacao = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
