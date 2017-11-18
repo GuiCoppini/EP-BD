@@ -2,17 +2,15 @@ package SistemadeOcorrencias.Ocorrencia
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.servlet.ModelAndView
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.PathVariable
-import javax.validation.Valid
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
-import java.util.*
+import org.springframework.web.servlet.ModelAndView
 import java.text.SimpleDateFormat
-//import javax.persistence.EntityManager
-//import javax.persistence.PersistenceContext
+import java.util.*
+import javax.validation.Valid
 
 
 @Controller
@@ -24,19 +22,16 @@ class OcorrenciaController {
     @Autowired
     lateinit var funcionarioRepository: FuncionarioRepository
 
-//    @PersistenceContext
-//    lateinit var em : EntityManager
-
     @RequestMapping("/") // Pagina HOME das ocorrencias
     fun homepage() : ModelAndView {
-        val mv = ModelAndView("/homepage")
+        val mv = ModelAndView("homepage")
 
         return mv
     }
 
     @RequestMapping("/{id}/funcionarios") // Pagina HOME das ocorrencias
     fun funcionariosDaOcorrencia(@PathVariable("id") id: Long) : ModelAndView {
-        val mv = ModelAndView("/lista_de_funcionarios")
+        val mv = ModelAndView("lista_de_funcionarios")
 
         mv.addObject("funcionarios", ocorrenciaRepository.findOne(id).getFuncionarios())
 
@@ -45,7 +40,7 @@ class OcorrenciaController {
 
     @RequestMapping("/funcionario/{cpf}") // Pagina HOME das ocorrencias
     fun ocorrenciasDoFuncionario(@PathVariable("cpf") cpf: Long) : ModelAndView {
-        val mv = ModelAndView("/ocorrencias_do_funcionario")
+        val mv = ModelAndView("ocorrencias_do_funcionario")
 
         val funcionario = funcionarioRepository.findByCpf(cpf)
         if (funcionario != null) {
@@ -54,7 +49,7 @@ class OcorrenciaController {
             mv.addObject("ocorrencias", funcionario.getOcorrencias())
             return mv
         } else {
-            return ModelAndView("/funcionario_nao_encontrado")
+            return ModelAndView("funcionario_nao_encontrado")
         }
 
     }
@@ -86,12 +81,6 @@ class OcorrenciaController {
         mv.addObject("ocorrencias", list)
 
         return mv
-    }
-
-    @RequestMapping("/resolvidas") // Todas as que a medidas é diferente da String padrao
-    fun resolvidas() {
-        val mv = ModelAndView("lista_de_occorencias")
-        val resolvidas = ocorrenciaRepository
     }
 
     @RequestMapping("/{id}/editar") // Edita a Ocorrecia com esse id
@@ -147,24 +136,8 @@ class OcorrenciaController {
             return ModelAndView("funcionario_nao_encontrado")
         }
 
-
-        println()
-        println()
-        println("VAI VER O FUNC DA OC")
-        println()
-        println()
-//        if(!oc.getFuncionarios().any( { it.id == funcionario.id } )) // se o funcionario nao existir na ocorrencia
         oc.getFuncionarios().add(funcionario) // add funcionario na ocorrencia
-
-
-        println()
-        println()
-        println("VAI VER A OC NO FUNC")
-        println()
-        println()
-
-//        if((oc.id != null) && (!funcionario.getOcorrencias().any( { it.id == oc.id } ))) // se a ocorrencia nao existir no funcionario
-        funcionario!!.getOcorrencias()!!.add(oc) // add ocorrencia no funcionario
+        funcionario.getOcorrencias().add(oc) // add ocorrencia no funcionario
 
         funcionarioRepository.saveAndFlush(funcionario)
 
@@ -172,12 +145,6 @@ class OcorrenciaController {
         if(oc.criacao == "") oc.criacao = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
 
         oc.ultimoUpdate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
-
-        println()
-        println()
-        println("VAI SALVAR TD")
-        println()
-        println()
 
         ocorrenciaRepository.saveAndFlush(oc)
         return ModelAndView("redirect:/index?tipo=all")
