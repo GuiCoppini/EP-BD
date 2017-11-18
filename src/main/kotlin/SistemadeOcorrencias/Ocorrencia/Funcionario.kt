@@ -10,7 +10,10 @@ import javax.persistence.FetchType
 @Table(name="FUNCIONARIO")
 class Funcionario(
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        @Column(name="id") // unico campo que vamos usar de fato
+        var id: Long? = null,
+
         @Column(name="cpf") // unico campo que vamos usar de fato
         var cpf: Long? = null,
 
@@ -32,11 +35,12 @@ class Funcionario(
         @Column(name="email")
         var email : String = ""
 ) {
-    @ManyToMany(cascade = arrayOf(CascadeType.ALL), fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ALTEROU_OCORRENCIA",
-            joinColumns = arrayOf(JoinColumn(name = "cpf"))
+            joinColumns = arrayOf(JoinColumn(name = "id_func")),
+            inverseJoinColumns = arrayOf(JoinColumn(name = "id_oc"))
     )
-    private var ocorrencias : MutableList<Ocorrencia> = mutableListOf()
+    private var ocorrencias : MutableSet<Ocorrencia> = mutableSetOf()
 
     fun getOcorrencias() = ocorrencias
 }

@@ -47,9 +47,16 @@ class OcorrenciaController {
     fun ocorrenciasDoFuncionario(@PathVariable("cpf") cpf: Long) : ModelAndView {
         val mv = ModelAndView("/ocorrencias_do_funcionario")
 
-        mv.addObject("funcionarios", funcionarioRepository.findOne(cpf).getOcorrencias())
+        val funcionario = funcionarioRepository.findByCpf(cpf)
+        if (funcionario != null) {
 
-        return mv
+            mv.addObject("funcionario", funcionario)
+            mv.addObject("ocorrencias", funcionario.getOcorrencias())
+            return mv
+        } else {
+            return ModelAndView("/funcionario_nao_encontrado")
+        }
+
     }
 
 
@@ -134,18 +141,44 @@ class OcorrenciaController {
     @PostMapping("/salvar")
     fun salva(@Valid oc: Ocorrencia, result: BindingResult): ModelAndView {
 
-        val funcionario = funcionarioRepository.findOne(oc.cpfTemporario)
+        val funcionario = funcionarioRepository.findByCpf(oc.cpfTemporario)
 
         if(funcionario == null) {
-            editar(oc.id)
+            return ModelAndView("funcionario_nao_encontrado")
         }
-        oc.getFuncionarios().add(funcionario)
-        funcionario.getOcorrencias().add(oc)
+
+
+        println()
+        println()
+        println("VAI VER O FUNC DA OC")
+        println()
+        println()
+//        if(!oc.getFuncionarios().any( { it.id == funcionario.id } )) // se o funcionario nao existir na ocorrencia
+        oc.getFuncionarios().add(funcionario) // add funcionario na ocorrencia
+
+
+        println()
+        println()
+        println("VAI VER A OC NO FUNC")
+        println()
+        println()
+
+//        if((oc.id != null) && (!funcionario.getOcorrencias().any( { it.id == oc.id } ))) // se a ocorrencia nao existir no funcionario
+        funcionario!!.getOcorrencias()!!.add(oc) // add ocorrencia no funcionario
+
+        funcionarioRepository.saveAndFlush(funcionario)
+
 
         if(oc.criacao == "") oc.criacao = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
 
         oc.ultimoUpdate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
-        
+
+        println()
+        println()
+        println("VAI SALVAR TD")
+        println()
+        println()
+
         ocorrenciaRepository.saveAndFlush(oc)
         return ModelAndView("redirect:/index?tipo=all")
 

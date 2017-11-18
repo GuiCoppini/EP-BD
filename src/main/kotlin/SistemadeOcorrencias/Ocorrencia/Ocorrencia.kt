@@ -8,7 +8,7 @@ import kotlin.jvm.Transient
 @Table(name="OCORRENCIA")
 class Ocorrencia(
                  @Id
-                 @GeneratedValue
+                 @GeneratedValue(strategy = GenerationType.AUTO)
                  @Column(name="id")
                  var id: Long? = null,
 
@@ -31,11 +31,8 @@ class Ocorrencia(
                  var cpfTemporario : Long? = null
 ) {
 
-    @ManyToMany(cascade = arrayOf(CascadeType.ALL), fetch = FetchType.EAGER)
-    @JoinTable(name = "ALTEROU_OCORRENCIA",
-            joinColumns = arrayOf(JoinColumn(name = "id"))
-    )
-    private var funcionarios: MutableList<Funcionario> = mutableListOf()
+    @ManyToMany(mappedBy = "ocorrencias")
+    private var funcionarios: MutableSet<Funcionario> = mutableSetOf()
 
     fun getFuncionarios() = funcionarios
 }
