@@ -33,8 +33,7 @@ class Ocorrencia(
 
     @ManyToMany(cascade = arrayOf(CascadeType.ALL), fetch = FetchType.EAGER)
     @JoinTable(name = "ALTEROU_OCORRENCIA",
-            joinColumns = arrayOf(JoinColumn(name = "id")),
-            inverseJoinColumns = arrayOf(JoinColumn(name = "cpf"))
+            joinColumns = arrayOf(JoinColumn(name = "id"))
     )
     private var funcionarios: MutableList<Funcionario> = mutableListOf()
 

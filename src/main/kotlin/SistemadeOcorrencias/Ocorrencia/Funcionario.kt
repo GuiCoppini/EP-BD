@@ -32,7 +32,10 @@ class Funcionario(
         @Column(name="email")
         var email : String = ""
 ) {
-    @ManyToMany(mappedBy = "funcionarios", fetch  = FetchType.EAGER)
+    @ManyToMany(cascade = arrayOf(CascadeType.ALL), fetch = FetchType.EAGER)
+    @JoinTable(name = "ALTEROU_OCORRENCIA",
+            joinColumns = arrayOf(JoinColumn(name = "cpf"))
+    )
     private var ocorrencias : MutableList<Ocorrencia> = mutableListOf()
 
     fun getOcorrencias() = ocorrencias
