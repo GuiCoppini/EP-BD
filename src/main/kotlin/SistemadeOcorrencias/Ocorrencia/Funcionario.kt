@@ -33,7 +33,10 @@ class Funcionario(
         var dataNascimento: Date? = null,
 
         @Column(name="email")
-        var email : String = ""
+        var email : String = "",
+
+        @Column(name="gerente_id")
+        var gerenteDoFuncionario : Long? = null
 ) {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ALTEROU_OCORRENCIA",
