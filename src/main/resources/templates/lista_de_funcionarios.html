@@ -44,7 +44,7 @@ table {
                     <td th:text="${funcionario.nome}"></td>
                     <td th:text="${funcionario.dataNascimento}"></td>
                     <td th:text="${funcionario.email}"></td>
-                    <td th:text="${funcionario.gerente_id}"></td>
+                    <td th:text="${funcionario.gerenteDoFuncionario}"></td>
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-sm btn-primary" th:href="@{/funcionario/{cpf}(cpf=${funcionario.cpf})}">Ver Ocorrências</a>
