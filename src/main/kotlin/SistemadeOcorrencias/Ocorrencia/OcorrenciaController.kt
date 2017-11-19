@@ -157,7 +157,8 @@ class OcorrenciaController {
 
         oc.ultimoUpdate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
 
-        ocorrenciaRepository.saveAndFlush(oc)
+        ocorrenciaRepository.save(oc)
+        funcionarioRepository.saveAndFlush(funcionario)
         return ModelAndView("redirect:/index?tipo=all")
 
     }
