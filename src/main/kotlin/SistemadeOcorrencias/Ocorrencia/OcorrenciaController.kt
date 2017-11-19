@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.servlet.ModelAndView
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.transaction.Transactional
 import javax.validation.Valid
 
 
@@ -137,6 +138,7 @@ class OcorrenciaController {
     }
 
     @PostMapping("/salvar")
+    @Transactional
     fun salva(@Valid oc: Ocorrencia, result: BindingResult): ModelAndView {
 
         val funcionario = funcionarioRepository.findByCpf(oc.cpfTemporario)
@@ -145,11 +147,11 @@ class OcorrenciaController {
             return ModelAndView("funcionario_nao_encontrado")
         }
 
-        oc.getFuncionarios().add(funcionario) // add funcionario na ocorrencia
-        funcionario.getOcorrencias().add(oc) // add ocorrencia no funcionario
+        if(!oc.getFuncionarios().contains(funcionario))
+            oc.getFuncionarios().add(funcionario) // add funcionario na ocorrencia
 
-        funcionarioRepository.save(funcionario)
-
+        if(funcionario.getOcorrencias().contains(oc))
+            funcionario.getOcorrencias().add(oc) // add ocorrencia no funcionario
 
         if(oc.criacao == "") oc.criacao = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
 
