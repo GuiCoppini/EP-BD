@@ -29,11 +29,12 @@
                     <input type="hidden" class="form-control input-sm" id="criacao" th:field="*{criacao}"/>
                     <input type="hidden" class="form-control input-sm" id="ultimoUpdate" th:field="*{ultimoUpdate}"/>
                     <input type="hidden" class="form-control input-sm" id="medidas" th:field="*{medidas}"/>
+                    <input type="hidden" class="form-control input-sm" id="funcionarios" th:field="*{funcionarios}"/>
 
                     <div class="form-group row">
                         <div class="col-md-4" th:classappend="${#fields.hasErrors('cpfTemporario')}? 'has-error'">
-                            <label>Seu CPF (APENAS NÚEMROS), confira antes de submeter</label>
-                            <input type="text" class="form-control input-sm" th:field="*{cpfTemporario}" autofocus="autofocus" required="required" placeholder="Qual seu CPF?" maxlength="11"/>
+                            <label>Seu CPF, confira antes de submeter</label>
+                            <input type="number" class="form-control input-sm" th:field="*{cpfTemporario}" autofocus="autofocus" required="required" placeholder="Qual seu CPF?" maxlength="11"/>
                         </div>
                     </div>
 

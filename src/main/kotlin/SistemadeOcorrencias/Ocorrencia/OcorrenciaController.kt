@@ -43,7 +43,7 @@ class OcorrenciaController {
     fun funcionariosDaOcorrencia(@PathVariable("id") id: Long) : ModelAndView {
         val mv = ModelAndView("lista_de_funcionarios")
 
-        mv.addObject("funcionarios", ocorrenciaRepository.findOne(id).getFuncionarios())
+        mv.addObject("funcionarios", ocorrenciaRepository.findOne(id).funcionarios)
 
         return mv
     }
@@ -147,19 +147,23 @@ class OcorrenciaController {
             return ModelAndView("funcionario_nao_encontrado")
         }
 
-        if(!oc.getFuncionarios().contains(funcionario))
-            oc.getFuncionarios().add(funcionario) // add funcionario na ocorrencia
-
-        if(funcionario.getOcorrencias().contains(oc))
-            funcionario.getOcorrencias().add(oc) // add ocorrencia no funcionario
 
         if(oc.criacao == "") oc.criacao = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
 
         oc.ultimoUpdate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date())
 
+        ocorrenciaRepository.saveAndFlush(oc)
+
+
+        oc.funcionarios.add(funcionario) // add funcionario na ocorrencia
+
+        funcionario.getOcorrencias().add(oc) // add ocorrencia no funcionario
+
+
         ocorrenciaRepository.save(oc)
         funcionarioRepository.saveAndFlush(funcionario)
         return ModelAndView("redirect:/index?tipo=all")
+
 
     }
 }

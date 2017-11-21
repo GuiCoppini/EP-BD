@@ -19,7 +19,7 @@ table {
 <body>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <strong>Ocorrências</strong>
+        <strong th:text="'Ocorrências de ' + ${funcionario.nome}"> </strong>
     </div>
 
     <div class="panel-body">
@@ -58,7 +58,7 @@ table {
     </div>
 
     <div class="panel-footer">
-        <a class="btn btn-sm btn-success" th:href="@{/index?tipo=all}">Voltar</a>
+        <a class="btn btn-sm btn-success" th:href="@{/funcionarios}">Voltar</a>
     </div>
 </div>
 </body>

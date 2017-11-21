@@ -11,7 +11,7 @@ import javax.persistence.FetchType
 class Funcionario(
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        @Column(name="id") // unico campo que vamos usar de fato
+        @Column(name="id")
         var id: Long? = null,
 
         @Column(name="cpf") // unico campo que vamos usar de fato
@@ -38,8 +38,9 @@ class Funcionario(
         @Column(name="GER_id")
         var gerenteDoFuncionario : Long? = null
 ) {
-    @ManyToMany(mappedBy = "funcionarios")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "funcionarios")
     private var ocorrencias : MutableSet<Ocorrencia> = mutableSetOf()
 
     fun getOcorrencias() = ocorrencias
+
 }

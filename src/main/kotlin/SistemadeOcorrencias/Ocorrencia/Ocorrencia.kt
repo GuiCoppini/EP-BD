@@ -33,16 +33,12 @@ class Ocorrencia(
 
 
 @ManyToMany(fetch = FetchType.LAZY, cascade = arrayOf(
-        CascadeType.DETACH,
-        CascadeType.REFRESH,
-        CascadeType.MERGE,
         CascadeType.PERSIST)
 )
 @JoinTable(name = "ALTEROU_OCORRENCIA",
         joinColumns = arrayOf(JoinColumn(name = "id_oc")),
         inverseJoinColumns = arrayOf(JoinColumn(name = "id_func"))
 )
-    private var funcionarios: MutableSet<Funcionario> = mutableSetOf()
+    var funcionarios: MutableList<Funcionario> = mutableListOf()
 
-    fun getFuncionarios() = funcionarios
 }
